@@ -1,5 +1,6 @@
 import { useLocation, useNavigate } from "react-router-dom";
 import axios from "axios";
+import { API_URL } from "../config";
 
 const ReviewOrderPage = () => {
   const { state } = useLocation();
@@ -30,10 +31,7 @@ const ReviewOrderPage = () => {
 
 
       // Send order data to the backend
-      const response = await axios.post(
-        "http://localhost:5000/orders/", 
-        orderData
-      );
+      const response = await axios.post(`${API_URL}/orders/`, orderData);
 
     
       if (response.status === 201) {

@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
+import { API_URL } from "../config";
 
 const Cart = ({ user }) => {
   const [cartItems, setCartItems] = useState([]);
@@ -17,7 +18,7 @@ const Cart = ({ user }) => {
   const fetchCart = async () => {
     try {
       const response = await axios.get(
-        `http://localhost:5000/users/${user.Email}/cart`
+        `${API_URL}/users/${user.Email}/cart`
       );
       setCartItems(response.data.cart);
       fetchBookDetails(response.data.cart);
@@ -30,7 +31,7 @@ const Cart = ({ user }) => {
     setIsLoading(true);
     const bookIds = cartItems.map((item) => item.bookId);
     const promises = bookIds.map((bookId) =>
-      axios.get(`http://localhost:5000/books/id/${bookId}`).catch((error) => {
+      axios.get(`${API_URL}/books/id/${bookId}`).catch((error) => {
         if (error.response.status === 404) {
           console.log(`Book not found: ${bookId}`);
           return null;
@@ -52,7 +53,7 @@ const Cart = ({ user }) => {
 
   const handleQuantityChange = async (bookId, quantity) => {
     try {
-      await axios.put(`http://localhost:5000/users/${user.Email}/cart`, {
+      await axios.put(`${API_URL}/users/${user.Email}/cart`, {
         bookId,
         quantity,
       });
@@ -65,7 +66,7 @@ const Cart = ({ user }) => {
   const handleRemoveItem = async (bookId) => {
     try {
       await axios.delete(
-        `http://localhost:5000/users/${user.Email}/cart/${bookId}`
+        `${API_URL}/users/${user.Email}/cart/${bookId}`
       );
       fetchCart();
     } catch (err) {

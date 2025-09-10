@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import axios from "axios";
+import { API_URL } from "../config";
 
 const SearchResults = () => {
   const [books, setBooks] = useState([]);
@@ -16,13 +17,11 @@ const SearchResults = () => {
       try {
         let endpoint = "";
         if (searchBy === "title") {
-          endpoint = `http://localhost:5000/books/title/${encodeURIComponent(query)}`;
+          endpoint = `${API_URL}/books/title/${encodeURIComponent(query)}`;
         } else if (searchBy === "author") {
-          endpoint = `http://localhost:5000/books/author/${encodeURIComponent(
-            query
-          )}`;
+          endpoint = `${API_URL}/books/author/${encodeURIComponent(query)}`;
         } else if (searchBy === "genre") {
-          endpoint = `http://localhost:5000/books/genre/${encodeURIComponent(query)}`;
+          endpoint = `${API_URL}/books/genre/${encodeURIComponent(query)}`;
         }
 
         const response = await axios.get(endpoint);

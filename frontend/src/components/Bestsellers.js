@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
+import { API_URL } from "../config";
 
 const Bestsellers = () => {
   const [books, setBooks] = useState([]);
@@ -12,9 +13,7 @@ const Bestsellers = () => {
     const fetchBestsellers = async () => {
       try {
         // Fetch only bestseller books from backend
-        const response = await axios.get(
-          "http://localhost:5000/books/bestsellers"
-        );
+        const response = await axios.get(`${API_URL}/books/bestsellers`);
         setBooks(response.data);
         setLoading(false);
       } catch (err) {
