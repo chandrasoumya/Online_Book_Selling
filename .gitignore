@@ -1,0 +1,41 @@
+# Logs
+logs/
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+lerna-debug.log*
+
+# Node modules
+node_modules/
+BookSalesBackend/node_modules/
+frontend/node_modules/
+
+# Build output
+dist/
+build/
+BookSalesBackend/build/
+frontend/build/
+coverage/
+BookSalesBackend/coverage/
+frontend/coverage/
+
+# Env files
+.env
+.env.*
+BookSalesBackend/.env
+frontend/.env
+
+# OS files
+Thumbs.db
+.DS_Store
+
+# IDE
+.vscode/
+.idea/
+
+# Misc
+*.local
+*.cache
+*.tmp
