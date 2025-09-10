@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
-import { API_URL } from "../config";
 import {
   IoIosArrowDown,
   IoIosArrowUp,
@@ -24,7 +23,7 @@ const Profile = ({ user }) => {
     if (user) {
       // Fetch orders
       axios
-        .get(`${API_URL}/orders/email/${user.Email}`)
+        .get(`${process.env.REACT_APP_API_URL}/orders/email/${user.Email}`)
         .then((response) => {
           setOrders(response.data);
           const bookIds = response.data
@@ -36,7 +35,7 @@ const Profile = ({ user }) => {
 
       // Fetch wishlist
       axios
-        .get(`${API_URL}/wishlist/${user.Email}`)
+        .get(`${process.env.REACT_APP_API_URL}/wishlist/${user.Email}`)
         .then((response) => {
           setWishlist(response.data.items || []);
           fetchBookDetails(response.data.items.map((item) => item.bookId));
@@ -47,7 +46,7 @@ const Profile = ({ user }) => {
 
   const fetchBookDetails = async (bookIds) => {
     const promises = bookIds.map((bookId) =>
-      axios.get(`${API_URL}/books/id/${bookId}`).catch((error) => {
+      axios.get(`${process.env.REACT_APP_API_URL}/books/id/${bookId}`).catch((error) => {
         if (error.response?.status === 404) {
           console.log(`Book not found: ${bookId}`);
           return null;
@@ -72,7 +71,7 @@ const Profile = ({ user }) => {
     if (!confirmed) return;
     try {
       setDeletingOrderId(orderId);
-      await axios.delete(`${API_URL}/orders/${orderId}`);
+      await axios.delete(`${process.env.REACT_APP_API_URL}/orders/${orderId}`);
       setOrders((prev) => prev.filter((o) => o._id !== orderId));
     } catch (err) {
       console.error("Error deleting order:", err);
@@ -87,7 +86,7 @@ const Profile = ({ user }) => {
     try {
       setRemovingBookId(bookId);
       await axios.delete(
-        `${API_URL}/wishlist/${encodeURIComponent(user.Email)}/${encodeURIComponent(bookId)}`
+        `${process.env.REACT_APP_API_URL}/wishlist/${encodeURIComponent(user.Email)}/${encodeURIComponent(bookId)}`
       );
       setWishlist((prev) => prev.filter((it) => String(it.bookId) !== String(bookId)));
     } catch (err) {

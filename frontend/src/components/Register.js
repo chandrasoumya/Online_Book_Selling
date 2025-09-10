@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import axios from "axios";
-import { API_URL } from "../config";
 import { Link } from "react-router-dom";
 
 const Register = () => {
@@ -25,7 +24,7 @@ const Register = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      await axios.post(`${API_URL}/register`, formData);
+      await axios.post(`${process.env.REACT_APP_API_URL}/register`, formData);
       setSuccess("User registered successfully");
       setError("");
     } catch (err) {

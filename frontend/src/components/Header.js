@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
-import { API_URL } from "../config";
 import {
   FaShoppingCart,
   FaHome,
@@ -31,7 +30,7 @@ const Header = ({ user, setUser }) => {
     }
     try {
       const response = await axios.get(
-        `${API_URL}/${searchBy}/${encodeURIComponent(searchQuery)}`
+        `${process.env.REACT_APP_API_URL}/${searchBy}/${encodeURIComponent(searchQuery)}`
       );
 
       navigate(

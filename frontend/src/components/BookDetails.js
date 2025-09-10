@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import axios from "axios";
-import { API_URL } from "../config";
 
 const BookDetails = ({ user }) => {
   const { id } = useParams(); 
@@ -20,7 +19,7 @@ const BookDetails = ({ user }) => {
 
     try {
       console.log(user.Email, book.bookId);
-      await axios.post(`${API_URL}/users/${user.Email}/cart`, {
+      await axios.post(`${process.env.REACT_APP_API_URL}/users/${user.Email}/cart`, {
         bookId: book.bookId, 
         quantity: 1, 
       });
@@ -60,7 +59,7 @@ const BookDetails = ({ user }) => {
     }
 
     try {
-      await axios.post(`${API_URL}/wishlist`, {
+      await axios.post(`${process.env.REACT_APP_API_URL}/wishlist`, {
         email: user.Email, 
         mobile: user.Mobile, 
         bookId: book.bookId, 
@@ -80,7 +79,7 @@ const BookDetails = ({ user }) => {
     const fetchBookDetails = async () => {
       try {
         const response = await axios.get(
-          `${API_URL}/books/id/${id}`
+          `${process.env.REACT_APP_API_URL}/books/id/${id}`
         );
         setBook(response.data); 
         setLoading(false);

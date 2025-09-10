@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
-import { API_URL } from "../config";
 import { useNavigate } from "react-router-dom";
 
 const RecommendedBooks = () => {
@@ -12,7 +11,7 @@ const RecommendedBooks = () => {
   useEffect(() => {
     const fetchRecommendations = async () => {
       try {
-        const response = await axios.get(`${API_URL}/books/recommendations?limit=8`);
+        const response = await axios.get(`${process.env.REACT_APP_API_URL}/books/recommendations?limit=8`);
         setBooks(response.data || []);
         setLoading(false);
       } catch (err) {
